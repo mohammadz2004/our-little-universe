@@ -82,6 +82,19 @@ const feelingsPages = [
 export default function Home() {
   const [showBanner, setShowBanner] = useState(false);
 
+
+  useEffect(() => {
+    if (window.location.hash === "#feelings") {
+      window.history.replaceState(
+        null,
+        "",
+        window.location.pathname + window.location.search
+      );
+    }
+
+    window.scrollTo(0, 0);
+  }, []);
+
   // فحص ملف الـ JSON لمعرفة إذا تم إضافة رسائل جديدة مقارنة بأخر زيارة
   useEffect(() => {
     async function checkForNewMessages() {
