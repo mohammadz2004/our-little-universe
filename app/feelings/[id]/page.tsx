@@ -19,7 +19,6 @@ import {
   ArrowLeft
 } from "lucide-react";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
 import Starfield from "@/components/Starfield";
 
 // ضع هنا رابط ملف الـ JSON المرفوع أونلاين (مثل Raw Gist على GitHub)
@@ -184,8 +183,7 @@ function FeelingContent() {
     return (
       <main className="min-h-screen text-white flex flex-col items-center justify-center p-6 text-center">
         <Starfield />
-          {/* شريط التنقل العلوي */}
-        <Navbar />
+
         <h1 className="text-2xl font-bold mb-4">الصفحة غير موجودة</h1>
         <Link href="/" className="px-6 py-2 bg-purple-600 rounded-full hover:bg-purple-500 transition">
           العودة للرئيسية
@@ -207,9 +205,6 @@ function FeelingContent() {
   
     <main className="relative min-h-screen text-gray-100 overflow-hidden pb-24 pt-20 px-4 sm:px-8">
       <Starfield />
-        {/* شريط التنقل العلوي */}
-              <Navbar />
-
       {/* تأثير الخفت التفاعلي بصفحة قبل النوم */}
       <AnimatePresence>
         {isActivated && metadata.actionType === "sleep" && (
