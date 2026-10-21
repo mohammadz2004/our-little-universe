@@ -268,42 +268,45 @@ function FeelingContent() {
         </motion.div>
 
         {/* كرت الرسالة مع الزر والعدّاد وحفظ التفضيلات */}
-        <motion.div
+<motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl shadow-xl space-y-6 mb-8"
+          className="p-4 sm:p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl shadow-xl space-y-5 mb-8"
         >
-          <div className="flex items-center justify-between border-b border-white/10 pb-4">
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-purple-400" />
+          {/* عنوان الصندوق */}
+          <div className="border-b border-white/10 pb-4">
+            <h2 className="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-purple-400 shrink-0" />
               <span>رسالتي لكِ:</span>
             </h2>
+          </div>
 
-                      {/* التنقل بين الرسائل */}
+          {/* التنقل بين الرسائل */}
           {messages.length > 0 && (
-            <div className="flex items-center justify-center gap-3 mt-6" dir="rtl">
-              
+            <div
+              className="flex items-center justify-center gap-1.5 sm:gap-3 w-full"
+              dir="rtl"
+            >
               {/* الرسالة السابقة */}
               <button
                 onClick={handlePreviousMessage}
                 disabled={messages.length <= 1}
                 aria-label="الرسالة السابقة"
-                className="group flex items-center gap-2 rounded-full border border-purple-400/20 bg-purple-500/10 px-4 py-2.5 text-sm font-medium text-purple-200 transition-all duration-300 hover:border-purple-400/50 hover:bg-purple-500/20 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                className="shrink-0 flex items-center justify-center gap-1 rounded-full border border-purple-400/20 bg-purple-500/10 px-2.5 sm:px-4 py-1.5 sm:py-2.5 text-xs sm:text-sm font-medium text-purple-200 transition-all duration-300 hover:border-purple-400/50 hover:bg-purple-500/20 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
               >
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-0.5" />
-                <span className="hidden sm:inline">السابقة</span>
-                <span className="sm:hidden">السابق</span>
+                <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+                <span>السابقة</span>
               </button>
 
               {/* عداد الرسائل */}
-              <div className="flex min-w-[76px] flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-2">
-                <span className="text-base font-semibold tabular-nums text-white">
+              <div className="flex shrink-0 min-w-[55px] sm:min-w-[70px] flex-col items-center justify-center rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.04] px-2 py-1.5 sm:px-3 sm:py-2">
+                <span className="text-sm sm:text-base font-semibold tabular-nums text-white">
                   {currentIndex + 1}
-                  <span className="mx-1.5 text-purple-400/60">/</span>
+                  <span className="mx-1 text-purple-400/60">/</span>
                   {messages.length}
                 </span>
-                <span className="mt-0.5 text-[10px] text-gray-400">
+                <span className="mt-0.5 text-[9px] sm:text-[10px] text-gray-400">
                   رسالة 💌
                 </span>
               </div>
@@ -313,15 +316,13 @@ function FeelingContent() {
                 onClick={handleNextMessage}
                 disabled={messages.length <= 1}
                 aria-label="الرسالة التالية"
-                className="group flex items-center gap-2 rounded-full border border-purple-400/20 bg-purple-500/10 px-4 py-2.5 text-sm font-medium text-purple-200 transition-all duration-300 hover:border-purple-400/50 hover:bg-purple-500/20 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                className="shrink-0 flex items-center justify-center gap-1 rounded-full border border-purple-400/20 bg-purple-500/10 px-2.5 sm:px-4 py-1.5 sm:py-2.5 text-xs sm:text-sm font-medium text-purple-200 transition-all duration-300 hover:border-purple-400/50 hover:bg-purple-500/20 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
               >
-                <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                <span className="hidden sm:inline">التالية</span>
-                <span className="sm:hidden">التالي</span>
+                <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0" />
+                <span>التالية</span>
               </button>
             </div>
           )}
-          </div>
 
           {/* عرض الرسالة */}
           {loading ? (

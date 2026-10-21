@@ -84,15 +84,13 @@ export default function Home() {
 
 
   useEffect(() => {
-    if (window.location.hash === "#feelings") {
-      window.history.replaceState(
-        null,
-        "",
-        window.location.pathname + window.location.search
-      );
-    }
-
-    window.scrollTo(0, 0);
+  if (window.location.hash) {
+    window.history.replaceState(
+      null,
+      "",
+      window.location.pathname + window.location.search
+    );
+  }
   }, []);
 
   // فحص ملف الـ JSON لمعرفة إذا تم إضافة رسائل جديدة مقارنة بأخر زيارة
