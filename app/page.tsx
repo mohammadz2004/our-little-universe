@@ -264,10 +264,9 @@ export default function Home() {
             return (
               <Link href={`/feelings/${item.id}`} key={item.id} className="block h-full">
                 <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
                   whileHover={{ y: -8 }}
                   className={`relative group rounded-2xl p-6 bg-gradient-to-b ${item.color} backdrop-blur-md border border-white/10 ${item.borderColor} transition-all duration-300 cursor-pointer shadow-lg overflow-hidden h-full flex flex-col justify-between`}
                 >
