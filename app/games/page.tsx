@@ -12,6 +12,7 @@ import {
 import Link from 'next/link';
 import Starfield from '@/components/Starfield';
 import Jigsaw from '@/components/games/jigsaw';
+import Memory from '@/components/games/memory';
 
 
 export default function GamesHubPage() {
@@ -134,19 +135,35 @@ export default function GamesHubPage() {
         )}
 
         {/* 2. عرض اللعبة المختارة بدقة الأسلوب والكرت نفسه */}
+      <AnimatePresence mode="wait">
         {activeGame === 'jigsaw' && (
-          <Jigsaw/>
-        )}
-
-        {activeGame === 'memory' && (
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="relative rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-purple-900/30 via-indigo-900/30 to-pink-900/20 border border-purple-500/30 backdrop-blur-xl shadow-2xl text-center space-y-6 max-w-4xl mx-auto"
+          <motion.div
+            key="jigsaw-game"
+            initial={{ opacity: 0, scale: 0.95, y: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -15 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            className="w-full"
           >
-            <h2 className="text-2xl font-bold text-pink-300">لعبة تطابق الذاكرة قريباً! 🧠</h2>
-          </motion.section>
+            <Jigsaw />
+          </motion.div>
         )}
+      </AnimatePresence>
+
+      <AnimatePresence mode="wait">
+        {activeGame === 'memory' && (
+          <motion.div
+            key="memory-game"
+            initial={{ opacity: 0, scale: 0.95, y: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -15 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            className="w-full"
+          >
+            <Memory />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
         {activeGame === 'quiz' && (
           <motion.section

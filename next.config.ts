@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
       },
     },
   },
-    allowedDevOrigins: ["10.0.0.1"],
+    allowedDevOrigins: ["10.0.0.5"],
 };
 
 

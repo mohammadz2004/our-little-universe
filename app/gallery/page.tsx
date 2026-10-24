@@ -166,9 +166,9 @@ export default function GalleryPage() {
       <Starfield />
       <Navbar />
 
-      {/* خلفيات سينمائية */}
-      <div className="pointer-events-none absolute left-1/2 top-1/3 z-0 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-purple-600/10 blur-[150px]" />
-      <div className="pointer-events-none absolute right-10 top-2/3 z-0 h-[400px] w-[400px] rounded-full bg-pink-600/10 blur-[130px]" />
+      {/* خلفيات سينمائية ثابتة متناسقة مع التمرير */}
+      <div className="pointer-events-none fixed left-1/2 top-1/3 z-0 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-600/15 blur-[160px]" />
+      <div className="pointer-events-none fixed right-10 top-2/3 z-0 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-pink-600/15 blur-[140px]" />
 
       <div className="relative z-10 mx-auto max-w-8xl">
         <Link
@@ -191,14 +191,17 @@ export default function GalleryPage() {
             <span>ذكرياتنا المصورة</span>
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-2xl sm:text-6xl font-bold text-white mb-3 py-4"
-          >
-            ألبوم حكايتنا ✨
-          </motion.h1>
+             <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-3xl sm:text-6xl font-extrabold leading-tight">
+                <span className="bg-gradient-to-r from-purple-200 via-pink-200 to-indigo-200 bg-clip-text text-transparent">
+                  ألبوم حكايتنا
+                </span>{" "}
+                ✨
+              </motion.h1>
+          
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
