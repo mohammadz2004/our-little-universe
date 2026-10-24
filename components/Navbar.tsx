@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Compass, Bookmark, Lock, Menu, X, ImageIcon } from "lucide-react";
+import { Sparkles, Compass, Bookmark, Lock, Menu, X, ImageIcon, PlayingCards } from "lucide-react";
 import Link from "next/link";
 
 export default function Navbar() {
@@ -30,6 +30,7 @@ export default function Navbar() {
     { href: "/interactive", label: "التفاعلات", icon: Compass, iconColor: "text-pink-400" },
     { href: "#dreams", label: "أحلامنا المشتركة", icon: Bookmark, iconColor: "text-indigo-400" },
     { href: "/gallery", label: "ألبومنا", icon: ImageIcon, iconColor: "text-green-400" },
+    { href: "/games", label: "مساحة لعب", icon: PlayingCards, iconColor: "text-amber-400" },
   ];
 
   return (

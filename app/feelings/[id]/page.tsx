@@ -48,7 +48,7 @@ const feelingsMetaData: Record<
     quote: "حتى في أكثر الأيام غيمة، ضحكتك هي النجم اللي بينور عالمي.",
     interactivePrompt: "اضغطي هنا لتأخذي نفساً عميقاً مع نجمة سحرية ✨",
     actionType: "breathe",
-    successMessage: "✨ أخذتي نفساً عميقاً.. أطلقنا همومك للسماء وصرتي أحسن!",
+    successMessage: "أخذتي نفساً عميقاً.. أطلقنا همومك للسماء وصرتي أحسن!✨",
   },
   "miss-you": {
     title: "لما تشتاقيلي",
@@ -59,7 +59,7 @@ const feelingsMetaData: Record<
     quote: "كل ثانية بتدوري فيها ببالي، بتكبر فيها مكانتك بقلبي.",
     interactivePrompt: "اضغطي لإرسال نبضة حب فورية عبر الفضاء ❤️",
     actionType: "pulse",
-    successMessage: "❤️ تم إرسال نبضة حب متوهجة عبر المجرة لتستقر في قلبك!",
+    successMessage: "تم إرسال نبضة حب متوهجة عبر المجرة لتستقر في قلبك!❤️ ",
   },
   happy: {
     title: "لما تكوني فرحانة",
@@ -70,7 +70,7 @@ const feelingsMetaData: Record<
     quote: "ضحكتك بتخلق مجرات جديدة من الأمل بقلبي.",
     interactivePrompt: "اضغطي لإطلاق ألعاب نارية من النجوم احتفالاً بكِ 🎆",
     actionType: "fireworks",
-    successMessage: "🎆 أُطلقت الألعاب النارية والنجوم احتفالاً بفرحتك!",
+    successMessage: "أُطلقت الألعاب النارية والنجوم احتفالاً بفرحتك!🎆",
   },
   "before-sleep": {
     title: "قبل ما تنامي",
@@ -81,7 +81,7 @@ const feelingsMetaData: Record<
     quote: "اتركي كل أفكار اليوم جانباً، والتقي بي في الأحلام.",
     interactivePrompt: "اضغطي لإطفاء أضواء الكوكب وتشغيل نمط النوم الهادئ 💤",
     actionType: "sleep",
-    successMessage: "🌙 خفتت أضواء الكون حولك.. تصبحي على ألف خير وأحلام سعيدة.",
+    successMessage: "خفتت أضواء الكون حولك.. تصبحي على ألف خير وأحلام سعيدة.🌙",
   },
   "over-thinking": {
     title: "لما تسرحي بأفكارك وتقلقي من المستقبل",
@@ -92,7 +92,7 @@ const feelingsMetaData: Record<
     quote: "المستقبل حلو طالما احنا سوا، ما تقلقي من شي وأنا معك.",
     interactivePrompt: "اضغطي لتبددي كل الأفكار المقلقة بنفخة سحرية 🌸",
     actionType: "wind",
-    successMessage: "🍃 هبت نسائم هادئة وبددت كل قلق وأفكار متعبة من راسك!",
+    successMessage: "هبت نسائم هادئة وبددت كل قلق وأفكار متعبة من راسك!🍃",
   },
   "you-are-special": {
     title: "قديش إنتي مميزة",
@@ -103,7 +103,7 @@ const feelingsMetaData: Record<
     quote: "بين كل النجوم في هذا الكون، أنتِ المجرة بأكملها.",
     interactivePrompt: "اضغطي لرؤية تاج الملكة يتلألأ ✨",
     actionType: "crown",
-    successMessage: "👑 تألق التاج فوق مجرتنا.. أنتِ الملكة المتفردة بقلبي!",
+    successMessage: "تألق التاج فوق مجرتنا.. أنتِ الملكة المتفردة بقلبي!👑",
   },
 };
 
@@ -268,7 +268,7 @@ function FeelingContent() {
         </motion.div>
 
         {/* كرت الرسالة مع الزر والعدّاد وحفظ التفضيلات */}
-<motion.div
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
@@ -373,7 +373,7 @@ function FeelingContent() {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={handleInteraction}
-          className="w-full p-5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium shadow-xl shadow-purple-950/50 flex items-center justify-center gap-3 cursor-pointer transition"
+          className="w-full p-5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-medium shadow-xl shadow-purple-950/50 flex items-center justify-center gap-3 cursor-pointer"
         >
           <Sparkles className={`w-5 h-5 text-pink-300 ${isActivated ? "animate-spin" : ""}`} />
           <span>{metadata.interactivePrompt}</span>

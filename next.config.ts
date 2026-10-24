@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
       },
     },
   },
+    allowedDevOrigins: ["10.0.0.1"],
 };
+
 
 export default nextConfig;

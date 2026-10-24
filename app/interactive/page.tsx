@@ -114,7 +114,7 @@ export default function EventsPage() {
         <div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition text-sm text-gray-300 backdrop-blur-md"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-sm text-gray-300 backdrop-blur-md"
           >
             <ArrowRight className="w-4 h-4" />
             <span>العودة لعالمنا الصغير</span>
@@ -208,7 +208,7 @@ export default function EventsPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.1 }}
-                    className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md space-y-2 hover:border-purple-500/40 transition"
+                    className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md space-y-2 hover:border-purple-500/40 "
                   >
                     <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-300 inline-block mb-1">
                       {item.date}
