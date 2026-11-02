@@ -13,10 +13,11 @@ import Link from 'next/link';
 import Starfield from '@/components/Starfield';
 import Jigsaw from '@/components/games/jigsaw';
 import Memory from '@/components/games/memory';
+import Emoji from '@/components/games/emoji';
 
 
 export default function GamesHubPage() {
-  const [activeGame, setActiveGame] = useState<'menu' | 'jigsaw' | 'memory' | 'quiz'>('menu');
+  const [activeGame, setActiveGame] = useState<'menu' | 'jigsaw' | 'memory' | 'emoji'>('menu');
 
   return (
     <main className="relative min-h-screen text-gray-100 overflow-hidden pb-12 pt-8 px-4 sm:px-8 lg:px-12" dir="rtl">
@@ -118,7 +119,7 @@ export default function GamesHubPage() {
                 <motion.div
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => setActiveGame('quiz')}
+                  onClick={() => setActiveGame('emoji')}
                   className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-rose-500/40 backdrop-blur-md cursor-pointer text-center space-y-3 transition flex flex-col items-center justify-center min-h-[180px]"
                 >
                   <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300">
@@ -165,15 +166,20 @@ export default function GamesHubPage() {
         )}
       </AnimatePresence>
 
-        {activeGame === 'quiz' && (
-          <motion.section
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="relative rounded-3xl p-8 sm:p-12 bg-gradient-to-r from-purple-900/30 via-indigo-900/30 to-pink-900/20 border border-purple-500/30 backdrop-blur-xl shadow-2xl text-center space-y-6 max-w-4xl mx-auto"
+      <AnimatePresence mode="wait">
+        {activeGame === 'emoji' && (
+          <motion.div
+            key="emoji-game"
+            initial={{ opacity: 0, scale: 0.95, y: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -15 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            className="w-full"
           >
-            <h2 className="text-2xl font-bold text-rose-300">لعبة أسئلة وحكايات قريباً! 💌</h2>
-          </motion.section>
+            <Emoji />
+          </motion.div>
         )}
+      </AnimatePresence>
       </div>
     </main>
   );

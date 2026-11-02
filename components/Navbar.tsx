@@ -2,13 +2,51 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Compass, Bookmark, Lock, Menu, X, ImageIcon, PlayingCards } from "lucide-react";
+import { Sparkles, Compass, Music, Lock, LockOpen, Menu, X, ImageIcon, PlayingCards, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+
+  // حالة لتتبع العناصر المكتشفة (Visited Links)
+  const [visitedLinks, setVisitedLinks] = useState<string[]>([]);
+  const [showSecretModal, setShowSecretModal] = useState(false);
+
+  const navLinks = [
+    { href: "/#feelings", label: "صفحات المشاعر", icon: Sparkles, iconColor: "text-purple-400" },
+    { href: "/interactive", label: "التفاعلات", icon: Compass, iconColor: "text-pink-400" },
+    { href: "/ourSongs", label: "أغانينا", icon: Music, iconColor: "text-indigo-400" },
+    { href: "/gallery", label: "ألبومنا", icon: ImageIcon, iconColor: "text-green-400" },
+    { href: "/games", label: "مساحة لعب", icon: PlayingCards, iconColor: "text-amber-400" },
+  ];
+
+  // جلب العناصر المزارة سابقاً من LocalStorage عند التحميل
+  useEffect(() => {
+    const saved = localStorage.getItem("visited_sections");
+    if (saved) {
+      try {
+        setVisitedLinks(JSON.parse(saved));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, []);
+
+  // تسجيل الرابط عند الضغط عليه
+  const handleLinkClick = (href: string) => {
+    setIsOpen(false);
+    if (!visitedLinks.includes(href)) {
+      const updated = [...visitedLinks, href];
+      setVisitedLinks(updated);
+      localStorage.setItem("visited_sections", JSON.stringify(updated));
+    }
+  };
+
+  // التحقق هل تم كشف واستكشاف كافة العناصر الموجودة بالقائمة
+  const allExplored = navLinks.every((link) => visitedLinks.includes(link.href));
+  const remainingCount = navLinks.length - navLinks.filter((link) => visitedLinks.includes(link.href)).length;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,14 +62,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
-
-  const navLinks = [
-    { href: "/#feelings", label: "صفحات المشاعر", icon: Sparkles, iconColor: "text-purple-400" },
-    { href: "/interactive", label: "التفاعلات", icon: Compass, iconColor: "text-pink-400" },
-    { href: "#dreams", label: "أحلامنا المشتركة", icon: Bookmark, iconColor: "text-indigo-400" },
-    { href: "/gallery", label: "ألبومنا", icon: ImageIcon, iconColor: "text-green-400" },
-    { href: "/games", label: "مساحة لعب", icon: PlayingCards, iconColor: "text-amber-400" },
-  ];
 
   return (
     <>
@@ -54,7 +84,6 @@ export default function Navbar() {
             </button>
           </div>
 
-                    
           {/* الشعار واسم المشروع */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <span className="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-purple-200 to-indigo-200">
@@ -68,7 +97,7 @@ export default function Navbar() {
         </div>
       </motion.header>
 
-     {/* ---------------- القائمة الجانبية (Sliding Drawer) ---------------- */}
+      {/* ---------------- القائمة الجانبية (Sliding Drawer) ---------------- */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -104,32 +133,105 @@ export default function Navbar() {
                 <nav className="flex flex-col gap-3">
                   {navLinks.map((link) => {
                     const Icon = link.icon;
+                    const isVisited = visitedLinks.includes(link.href);
                     return (
                       <Link
                         key={link.href}
                         href={link.href}
-                        onClick={() => setIsOpen(false)}
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:bg-purple-500/10 hover:border-purple-500/30 text-gray-200 font-medium transition duration-200"
+                        onClick={() => handleLinkClick(link.href)}
+                        className={`flex items-center justify-between px-4 py-3 rounded-xl border font-medium transition duration-200 ${
+                          isVisited
+                            ? "bg-purple-950/20 border-purple-500/30 text-white"
+                            : "bg-white/5 border-white/5 hover:bg-purple-500/10 hover:border-purple-500/30 text-gray-200"
+                        }`}
                       >
-                        <Icon className={`w-5 h-5 ${link.iconColor}`} />
-                        <span>{link.label}</span>
+                        <div className="flex items-center gap-3">
+                          <Icon className={`w-5 h-5 ${link.iconColor}`} />
+                          <span>{link.label}</span>
+                        </div>
+                        {isVisited && (
+                          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                        )}
                       </Link>
                     );
                   })}
                 </nav>
               </div>
 
-              <div className="pt-6 border-t border-white/10">
+              {/* زر الرسالة السرية */}
+              <div className="pt-6 border-t border-white/10 space-y-2">
                 <button
-                  onClick={() => setIsOpen(false)}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white font-medium shadow-lg shadow-purple-950/50 transition cursor-pointer"
+                  onClick={() => {
+                    if (allExplored) {
+                      setShowSecretModal(true);
+                      setIsOpen(false);
+                    }
+                  }}
+                  disabled={!allExplored}
+                  className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium shadow-lg transition duration-300 ${
+                    allExplored
+                      ? "bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 hover:scale-[1.02] text-white shadow-purple-950/50 cursor-pointer animate-pulse"
+                      : "bg-white/5 border border-white/10 text-gray-500 cursor-not-allowed opacity-75"
+                  }`}
                 >
-                  <Lock className="w-4 h-4 text-purple-300" />
-                  <span>فتح الرسالة السرية</span>
+                  {allExplored ? (
+                    <>
+                      <LockOpen className="w-4 h-4 text-pink-200" />
+                      <span>فتح الرسالة السرية ✨</span>
+                    </>
+                  ) : (
+                    <>
+                      <Lock className="w-4 h-4 text-gray-500" />
+                      <span>فتح الرسالة السرية</span>
+                    </>
+                  )}
                 </button>
+
+                {!allExplored && (
+                  <p className="text-[11px] text-center text-purple-300/70 font-light">
+                    باقي {remainingCount} عناصر لاستكشافها لفتح الرسالة 🔒
+                  </p>
+                )}
               </div>
             </motion.aside>
           </>
+        )}
+      </AnimatePresence>
+
+      {/* ---------------- نافذة عرض الرسالة السرية عند الانتهاء ---------------- */}
+      <AnimatePresence>
+        {showSecretModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="relative w-full max-w-lg bg-[#0e0f19] border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl text-center space-y-6 overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500" />
+              
+              <div className="w-16 h-16 mx-auto rounded-full bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-300">
+                <Sparkles className="w-8 h-8 animate-spin" />
+              </div>
+
+              <div className="space-y-2">
+                <h3 className="text-xl sm:text-2xl font-bold text-white">الرسالة السرية 💖</h3>
+                <p className="text-xs sm:text-sm text-purple-200/80">لأنكِ اكتشفتِ كل أركان عالمنا الصغير..</p>
+              </div>
+
+              <div className="p-4 sm:p-6 bg-white/5 border border-white/10 rounded-2xl text-right text-gray-200 text-sm leading-relaxed max-h-60 overflow-y-auto">
+                {/* يمكنك كتابة محتوى الرسالة السرية هنا */}
+                شكراً لأنكِ دائماً تجعلين كل جزء في حياتي أجمل وأكثر سحراً. كل تفصيلة في هذا المكان صُممت فقط لترسم البسمة على وجهكِ ❤️✨.
+              </div>
+
+              <button
+                onClick={() => setShowSecretModal(false)}
+                className="w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm transition cursor-pointer"
+              >
+                إغلاق الرسالة
+              </button>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>
